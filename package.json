@@ -1,16 +1,20 @@
 {
+  "name": "burayyuksel",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build",
-    "test": "echo \"This template does not include a test runner by default.\" && exit 1",
-    "format": "prettier --write \"src/**/*.js\"",
-    "lint": "prettier --check \"src/**/*.js\""
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
   "dependencies": {
-    "canvas-confetti": "^1.2.0"
+    "next": "12.1.5",
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
   },
   "devDependencies": {
-    "prettier": "^2.2.1",
-    "snowpack": "^3.3.7"
+    "eslint": "8.14.0",
+    "eslint-config-next": "12.1.5"
   }
 }

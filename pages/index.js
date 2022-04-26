@@ -62,7 +62,7 @@ export default function Home() {
             illustrations, besides this creating wireframes, work flows, prototypes and interactions.
           </Text>
 
-          <HStack mt={['2rem', '10rem']} spacing='30px'>
+          <HStack mt={['2rem', '8rem']} spacing='30px'>
             <Link href='https://dribbble.com/burayyuksel' isExternal>
               <Image src='/images/social-dribbble.png' alt='Behance' objectFit='cover' />
             </Link>

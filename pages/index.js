@@ -24,7 +24,7 @@ export default function Home() {
         backgroundSize='contain'
       >
         <Box>
-          <Image objectFit='cover' src='/images/buray.png' alt='Buray Yüksel' />
+          <Image objectFit='cover' src='/images/buray.png' alt='Buray Yüksel' h='135px' w='135px' />
 
           <Heading
             fontSize={['20px', '40px', '45px', '55px', '65px', '91px']}
@@ -64,16 +64,16 @@ export default function Home() {
 
           <HStack mt={['2rem', '8rem']} spacing='30px'>
             <Link href='https://dribbble.com/burayyuksel' isExternal>
-              <Image src='/images/social-dribbble.png' alt='Behance' objectFit='cover' />
+              <Image src='/images/social-dribbble.png' alt='Behance' objectFit='cover' w='23px' h='23px' />
             </Link>
             <Link href='https://www.behance.net/buray_yuksel' isExternal>
-              <Image src='/images/social-behance.png' alt='Behance' objectFit='cover' />
+              <Image src='/images/social-behance.png' alt='Behance' objectFit='cover' w='33px' h='21px' />
             </Link>
             <Link href='https://www.instagram.com/buray_yuksel/' isExternal>
-              <Image src='/images/social-instagram.png' alt='Behance' objectFit='cover' />
+              <Image src='/images/social-instagram.png' alt='Behance' objectFit='cover' w='22px' h='21px' />
             </Link>
             <Link href='https://www.linkedin.com/in/burayyuksel/' isExternal>
-              <Image src='/images/social-linkedin.png' alt='Behance' objectFit='cover' />
+              <Image src='/images/social-linkedin.png' alt='Behance' objectFit='cover' w='22px' h='22px' />
             </Link>
           </HStack>
         </Box>

@@ -1,3 +1,7 @@
+html {
+  background-color: #000;
+}
+
 a:focus {
   box-shadow: none !important;
 }

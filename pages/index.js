@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 export default function Home() {
   return (
-    <Box bg='#000' h='100vh' overflow='hidden'>
+    <Box bg='#000' minH='100vh' overflow='hidden'>
       <Head>
         <title>Buray Yüksel | Product Designer</title>
         <meta name='description' content='Buray Yuksel Website' />

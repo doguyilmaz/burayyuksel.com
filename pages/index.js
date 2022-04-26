@@ -16,7 +16,7 @@ export default function Home() {
 
       <Box
         h='full'
-        pt={['2rem', '10rem']}
+        pt={['2rem', '5rem']}
         marginLeft={['1rem', '5rem', '5rem', '6rem', '10rem']}
         backgroundImage='url("/images/layer.png")'
         backgroundRepeat='no-repeat'

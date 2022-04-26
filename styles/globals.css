@@ -1,3 +1,7 @@
+a:focus {
+  box-shadow: none !important;
+}
+
 @font-face {
   font-family: 'GopherDisplay';
   src: url('/fonts/GopherDisplay/GopherDisplay-Regular.ttf') format('truetype');

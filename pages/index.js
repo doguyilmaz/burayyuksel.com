@@ -1,4 +1,4 @@
-import { Box, Container, Flex, Heading, Image, Text, VStack } from '@chakra-ui/react';
+import { Box, Container, Flex, Heading, HStack, Image, Link, Text, VStack } from '@chakra-ui/react';
 import Head from 'next/head';
 
 export default function Home() {
@@ -16,7 +16,7 @@ export default function Home() {
 
       <Box
         h='full'
-        pt={['4rem', '15rem']}
+        pt={['2rem', '10rem']}
         marginLeft={['1rem', '5rem', '5rem', '6rem', '10rem']}
         backgroundImage='url("/images/layer.png")'
         backgroundRepeat='no-repeat'
@@ -61,6 +61,21 @@ export default function Home() {
             Android by using Adobe Illustrator, Adobe Photoshop, Sketch App, Figma, inVision and other UX applications, creating assets, icons and
             illustrations, besides this creating wireframes, work flows, prototypes and interactions.
           </Text>
+
+          <HStack mt={['2rem', '10rem']} spacing='30px'>
+            <Link href='https://dribbble.com/burayyuksel' isExternal>
+              <Image src='/images/social-dribbble.png' alt='Behance' objectFit='cover' />
+            </Link>
+            <Link href='https://www.behance.net/buray_yuksel' isExternal>
+              <Image src='/images/social-behance.png' alt='Behance' objectFit='cover' />
+            </Link>
+            <Link href='https://www.instagram.com/buray_yuksel/' isExternal>
+              <Image src='/images/social-instagram.png' alt='Behance' objectFit='cover' />
+            </Link>
+            <Link href='https://www.linkedin.com/in/burayyuksel/' isExternal>
+              <Image src='/images/social-linkedin.png' alt='Behance' objectFit='cover' />
+            </Link>
+          </HStack>
         </Box>
       </Box>
     </Box>

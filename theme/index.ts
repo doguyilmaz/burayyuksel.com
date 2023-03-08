@@ -1,7 +1,5 @@
 import { extendTheme } from '@chakra-ui/react';
 
-import { Poppins } from 'next/font/google';
-const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 // 📁 theme
 //   📄 index.js  # my main theme entrypoint
 //   📄 styles.js  # all my global style overrides
@@ -139,9 +137,9 @@ export const colors = {
 
 // TODO: edit and ask fallback fonts
 const fonts = {
-  body: `${poppins.style.fontFamily}, system-ui, sans-serif`,
-  heading: `${poppins.style.fontFamily}, Georgia, serif`,
-  mono: `${poppins.style.fontFamily}, Menlo, monospace`,
+  body: `Poppins, system-ui, sans-serif`,
+  heading: `Poppins, Georgia, serif`,
+  mono: `Poppins, Menlo, monospace`,
 };
 
 const fontSizes = {

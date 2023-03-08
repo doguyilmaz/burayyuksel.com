@@ -1,5 +1,7 @@
 import { extendTheme } from '@chakra-ui/react';
-import { createBreakpoints } from '@chakra-ui/theme-tools';
+
+import { Poppins } from 'next/font/google';
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 // 📁 theme
 //   📄 index.js  # my main theme entrypoint
 //   📄 styles.js  # all my global style overrides
@@ -7,14 +9,6 @@ import { createBreakpoints } from '@chakra-ui/theme-tools';
 //     📄 borders.js  # all my border overrides
 //   📁 components
 //     📄 button.js  # all my button overrides
-
-export const breakpoints = createBreakpoints({
-  sm: '30em',
-  md: '48em',
-  lg: '62em',
-  xl: '80em',
-  '2xl': '96em',
-});
 
 const config = {
   initialColorMode: 'light',
@@ -145,9 +139,9 @@ export const colors = {
 
 // TODO: edit and ask fallback fonts
 const fonts = {
-  body: 'Poppins, system-ui, sans-serif',
-  heading: 'Poppins, Georgia, serif',
-  mono: 'Poppins, Menlo, monospace',
+  body: `${poppins.style.fontFamily}, system-ui, sans-serif`,
+  heading: `${poppins.style.fontFamily}, Georgia, serif`,
+  mono: `${poppins.style.fontFamily}, Menlo, monospace`,
 };
 
 const fontSizes = {
@@ -179,7 +173,13 @@ const letterSpacings = {
 
 export const theme = extendTheme({
   config,
-  breakpoints,
+  breakpoints: {
+    sm: '30em',
+    md: '48em',
+    lg: '62em',
+    xl: '80em',
+    '2xl': '96em',
+  },
   colors,
   fonts,
   fontSizes,

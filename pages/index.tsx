@@ -8,12 +8,10 @@ export default function Home() {
     <Box bg='#000' minH='100vh' overflow='hidden'>
       <Head>
         <title>Buray Yüksel | Product Designer</title>
-        <meta name='description' content='Buray Yuksel Website' />
+        <meta name='description' content='Buray Yuksel Personal Website' />
         <link rel='icon' href='/favicon.ico' />
-
-        <link rel='preload' href='/fonts/GopherDisplay/GopherDisplay-Regular.ttf' as='font' crossOrigin='' />
-        {/* <link rel='preload' href='/fonts/Montserrat/Montserrat-Light.ttf' as='font' crossOrigin='' /> */}
-        <link rel='preload' href='/fonts/Poppins/Poppins-Light.ttf' as='font' crossOrigin='' />
+        {/* <link rel='preload' href='/fonts/GopherDisplay/GopherDisplay-Regular.ttf' as='font' crossOrigin='' />
+        <link rel='preload' href='/fonts/Poppins/Poppins-Light.ttf' as='font' crossOrigin='' /> */}
       </Head>
 
       <Box

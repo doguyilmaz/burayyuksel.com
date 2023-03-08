@@ -1,5 +1,7 @@
-import { Box, Container, Flex, Heading, HStack, Image, Link, Text, VStack } from '@chakra-ui/react';
+import { Box, Heading, HStack, Image, Link, Text } from '@chakra-ui/react';
 import Head from 'next/head';
+
+const EXPERIENCE_YEAR = new Date().getFullYear() - 2014;
 
 export default function Home() {
   return (
@@ -56,10 +58,10 @@ export default function Home() {
             color='#FFFFFF'
             w={['340px', '380px', '620px', '864px']}
           >
-            I have 7 years experience as a designer in UI Designer and Art Director positions. Currently, I work as an Product Designer at Türkiye
-            Tourism Promotion and Development Agency, designing user interface and user experience for product across all major platforms - iOS, OS X,
-            Android by using Adobe Illustrator, Adobe Photoshop, Sketch App, Figma, inVision and other UX applications, creating assets, icons and
-            illustrations, besides this creating wireframes, work flows, prototypes and interactions.
+            I have {EXPERIENCE_YEAR} years experience as a designer in UI Designer and Art Director positions. Currently, I work as an Product Design
+            Coordinator at Türkiye Tourism Promotion and Development Agency, designing user interface and user experience for product across all major
+            platforms - iOS, OS X, Android by using Adobe Illustrator, Adobe Photoshop, Sketch App, Figma, inVision and other UX applications,
+            creating assets, icons and illustrations, besides this creating wireframes, work flows, prototypes and interactions.
           </Text>
 
           <HStack mt={['2rem', '8rem']} spacing='30px'>

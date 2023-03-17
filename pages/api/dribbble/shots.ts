@@ -27,9 +27,12 @@ export type ShotImages = {
   teaser: string;
 };
 
+export type SerializedShot = ReturnType<typeof shotSerializer>[number];
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // const res = await fetch('https://api.dribbble.com/v2/user/shots'
-  if (req.method !== 'GET') return res.status(405).json({ success: false, data: null, message: 'Method not allowed' });
+  if (req.method !== 'GET')
+    return res.status(405).json({ success: false, data: null, message: 'Method not allowed' });
 
   try {
     const response = await fetch('http://localhost:3004/shots');
@@ -41,20 +44,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 }
 
 const shotSerializer = (data: Shot[]) => {
-  return data.map((shot) => {
-    return {
-      id: shot.id,
-      title: shot.title,
-      description: shot.description,
-      tags: shot.tags,
-      image: shot.images.hidpi,
-      thumbnail: shot.images.teaser,
-      // images: shot.images,
-      // height: shot.height,
-      // width: shot.width,
-      url: shot.html_url,
-      published_at: shot.published_at,
-      updated_at: shot.updated_at,
-    };
-  });
+  return data.map((shot) => ({
+    id: shot.id,
+    title: shot.title,
+    description: shot.description,
+    tags: shot.tags,
+    image: shot.images.hidpi,
+    thumbnail: shot.images.teaser,
+    url: shot.html_url,
+    published_at: shot.published_at,
+    updated_at: shot.updated_at,
+  }));
 };

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "server": "json-server --watch db.json --port 3004"
+    "server": "json-server --watch db.json --port 3004",
+    "start:app": "npm run server & npm run dev"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.5.1",

@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       oldData.syncons.unshift({ id: crypto.randomUUID(), date });
 
       // write new data to file
-      await fs.writeFile(path.join(process.cwd(), 'db.json'), JSON.stringify(oldData), 'utf8');
+      await fs.writeFile(process.cwd() + '/db.json', JSON.stringify(oldData), 'utf8');
       res.json({ success: true, message: 'Dribbble data sync is successful.' });
     }
   } catch (error) {

@@ -1,10 +1,14 @@
+import Portfolio from '@/components/Portfolio';
 import Wrapper from '@/components/Wrapper';
-import { Heading, HStack, Image, Link, Text } from '@chakra-ui/react';
+import { Flex, Heading, HStack, Image, Text, Link as ChakraLink } from '@chakra-ui/react';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
+import type { SerializedShot } from './api/dribbble/shots';
 
 const EXPERIENCE_YEAR = new Date().getFullYear() - 2014;
 
-export default function Home() {
+export default function Home({ shots }: { shots: SerializedShot[] }) {
   return (
     <Wrapper>
       <Head>
@@ -15,7 +19,9 @@ export default function Home() {
          <link rel='preload' href='/fonts/Poppins/Poppins-Light.ttf' as='font' crossOrigin='' /> */}
       </Head>
 
-      <Image objectFit='cover' src='/images/buray.png' alt='Buray Yüksel' h='135px' w='135px' />
+      <Link href='/'>
+        <Image objectFit='cover' src='/images/buray.png' alt='Buray Yüksel' h='135px' w='135px' />
+      </Link>
 
       <Heading
         fontSize={['20px', '40px', '45px', '55px', '65px', '91px']}
@@ -23,7 +29,7 @@ export default function Home() {
         mt={[1, 2, 3, 5]}
         fontFamily='Poppins'
         fontWeight={275}
-        color='#FFFFFF'
+        color='#000'
       >
         Buray Yüksel
       </Heading>
@@ -33,7 +39,7 @@ export default function Home() {
         lineHeight={['10px', '50px', '50px', '60px', '65px', '91px']}
         mt={[0, 1, 2, 2, 5]}
         fontFamily='GopherDisplay'
-        color='#FFFFFF'
+        color='#000'
       >
         Product Designer
       </Heading>
@@ -44,7 +50,7 @@ export default function Home() {
         mt={[10, 30, 50]}
         fontFamily='Poppins'
         fontWeight={275}
-        color='#FFFFFF'
+        color='#000'
         w={['340px', '380px', '620px', '864px']}
       >
         I have {EXPERIENCE_YEAR} years experience as a designer in UI Designer and Art Director
@@ -55,44 +61,87 @@ export default function Home() {
         besides this creating wireframes, work flows, prototypes and interactions.
       </Text>
 
-      <HStack mt={['2rem', '8rem']} spacing='30px'>
-        <Link href='https://dribbble.com/burayyuksel' isExternal>
-          <Image
-            src='/images/social-dribbble.png'
-            alt='Behance'
-            objectFit='cover'
-            w='23px'
-            h='23px'
-          />
-        </Link>
-        <Link href='https://www.behance.net/buray_yuksel' isExternal>
-          <Image
-            src='/images/social-behance.png'
-            alt='Behance'
-            objectFit='cover'
-            w='33px'
-            h='21px'
-          />
-        </Link>
-        <Link href='https://www.instagram.com/buray_yuksel/' isExternal>
-          <Image
-            src='/images/social-instagram.png'
-            alt='Behance'
-            objectFit='cover'
-            w='22px'
-            h='21px'
-          />
-        </Link>
-        <Link href='https://www.linkedin.com/in/burayyuksel/' isExternal>
-          <Image
-            src='/images/social-linkedin.png'
-            alt='Behance'
-            objectFit='cover'
-            w='22px'
-            h='22px'
-          />
-        </Link>
-      </HStack>
+      <Flex mt={['2rem', '8rem']} justify='space-between' maxW={1700}>
+        <ChakraLink href='/#portfolio'>
+          <HStack style={{ cursor: 'pointer' }}>
+            <Image objectFit='cover' src='/images/scroll-button.png' alt='scroll-button' />
+            <Text
+              color='#271525'
+              fontSize={14}
+              fontWeight={700}
+              lineHeight='21px'
+              fontFamily='Poppins'
+            >
+              Scroll Down
+            </Text>
+          </HStack>
+        </ChakraLink>
+
+        <HStack
+          spacing='30px'
+          sx={{ WebkitFilter: 'grayscale(1) invert(1)', filter: 'grayscale(1) invert(1)' }}
+        >
+          <ChakraLink href='https://dribbble.com/burayyuksel' isExternal>
+            <Image
+              src='/images/social-dribbble.png'
+              alt='Behance'
+              objectFit='cover'
+              w='23px'
+              h='23px'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://www.behance.net/buray_yuksel' isExternal>
+            <Image
+              src='/images/social-behance.png'
+              alt='Behance'
+              objectFit='cover'
+              w='33px'
+              h='21px'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://www.instagram.com/buray_yuksel/' isExternal>
+            <Image
+              src='/images/social-instagram.png'
+              alt='Behance'
+              objectFit='cover'
+              w='22px'
+              h='21px'
+            />
+          </ChakraLink>
+          <ChakraLink href='https://www.linkedin.com/in/burayyuksel/' isExternal>
+            <Image
+              src='/images/social-linkedin.png'
+              alt='Behance'
+              objectFit='cover'
+              w='22px'
+              h='22px'
+            />
+          </ChakraLink>
+        </HStack>
+      </Flex>
+
+      <Portfolio shots={shots} />
     </Wrapper>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  let shots = [];
+  try {
+    const response = await fetch('http://localhost:3000/api/dribbble/shots?count=21')
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    shots = response.data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return {
+    props: {
+      shots,
+    },
+  };
+};

@@ -27,6 +27,8 @@ export type ShotImages = {
   teaser: string;
 };
 
+export type PortfolioItemImage = 'thumbnail' | 'teaser';
+
 export type SerializedShot = ReturnType<typeof shotSerializer>[number];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -37,7 +39,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const response = await fetch('http://localhost:3004/shots');
     const data = await response.json();
-    res.status(200).json({ data: shotSerializer(data), success: true, message: 'Success' });
+    const shots = shotSerializer(data);
+    req.query.count && shots.splice(Number(req.query.count));
+    res.status(200).json({ data: shots, success: true, message: 'Success' });
   } catch (error) {
     res.status(500).json({ data: [], success: false, message: 'Error' });
   }
@@ -50,7 +54,8 @@ const shotSerializer = (data: Shot[]) => {
     description: shot.description,
     tags: shot.tags,
     image: shot.images.hidpi,
-    thumbnail: shot.images.teaser,
+    thumbnail: shot.images.normal,
+    teaser: shot.images.teaser,
     url: shot.html_url,
     published_at: shot.published_at,
     updated_at: shot.updated_at,

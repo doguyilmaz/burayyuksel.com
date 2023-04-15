@@ -1,5 +1,7 @@
-html {
-  background-color: #000;
+html,
+body {
+  background-color: #f0e9e3 !important;
+  scroll-behavior: smooth;
 }
 
 a:focus {

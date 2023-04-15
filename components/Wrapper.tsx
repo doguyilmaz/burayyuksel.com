@@ -1,4 +1,4 @@
-import { Box, BoxProps } from '@chakra-ui/react';
+import { Box, BoxProps, Image } from '@chakra-ui/react';
 
 interface WrapperProps extends BoxProps {
   children: React.ReactNode;
@@ -6,18 +6,26 @@ interface WrapperProps extends BoxProps {
 
 const Wrapper = ({ children, ...props }: WrapperProps) => {
   return (
-    <Box bg='#000' minH='100vh' overflow='hidden' {...props}>
+    <Box bg='#F0E9E3' minH='100vh' overflow='hidden' {...props}>
       <Box
+        position='relative'
         h='full'
         minH='100vh'
-        pt={['2rem', '5rem']}
-        marginLeft={['1rem', '5rem', '5rem', '6rem', '10rem']}
-        backgroundImage='url("/images/layer.png")'
-        backgroundRepeat='no-repeat'
-        backgroundPosition={['10rem', '8rem', '15rem', '25rem', '30rem', '50rem']}
-        backgroundSize='contain'
+        py={['2rem', '5rem']}
+        mx={['1rem', '20px', '50px', '50px', '100px']}
       >
-        {children}
+        <Box as='main' position='relative' zIndex={1}>
+          {children}
+        </Box>
+        <Image
+          src='/images/layer.png'
+          alt=''
+          position='absolute'
+          top='0'
+          right='0'
+          zIndex={0}
+          opacity={0.6}
+        />
       </Box>
     </Box>
   );

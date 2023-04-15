@@ -128,7 +128,7 @@ export default function Home({ shots }: { shots: SerializedShot[] }) {
 export const getStaticProps: GetStaticProps = async () => {
   let shots = [];
   try {
-    const response = await fetch('http://localhost:3000/api/dribbble/shots?count=21')
+    const response = await fetch('/api/dribbble/shots?count=21')
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);

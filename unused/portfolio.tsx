@@ -1,7 +1,7 @@
 import { Flex, Image, Link, Stack, Tag, Text } from '@chakra-ui/react';
 import Wrapper from '@/components/Wrapper';
 import { randomColor } from '@/utility/randomHashedColor';
-import type { SerializedShot } from './api/dribbble/shots';
+import type { SerializedShot } from '../pages/api/dribbble/shots';
 import type { GetStaticProps } from 'next';
 import { APP_URL } from '@/utility/config';
 

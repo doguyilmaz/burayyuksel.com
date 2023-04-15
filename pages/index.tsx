@@ -130,11 +130,13 @@ export default function Home({ shots }: { shots: SerializedShot[] }) {
 export const getStaticProps: GetStaticProps = async () => {
   const db = await fs.readFile(process.cwd() + '/db.json', 'utf8');
   const data = JSON.parse(db).shots;
-  const shots = shotSerializer(data).splice(21) || [];
+  const shots = shotSerializer(data);
+  shots.splice(21);
 
   return {
     props: {
       shots,
     },
+    revalidate: 60,
   };
 };

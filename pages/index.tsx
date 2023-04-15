@@ -1,11 +1,12 @@
-import Portfolio from '@/components/Portfolio';
-import Wrapper from '@/components/Wrapper';
-import { APP_URL } from '@/utility/config';
-import { Flex, Heading, HStack, Image, Text, Link as ChakraLink } from '@chakra-ui/react';
+import fs from 'fs/promises';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import type { SerializedShot } from './api/dribbble';
+import { Flex, Heading, HStack, Image, Text, Link as ChakraLink } from '@chakra-ui/react';
+import Portfolio from '@/components/Portfolio';
+import Wrapper from '@/components/Wrapper';
+import type { SerializedShot } from '@/utility/readShots';
+import { shotSerializer } from '@/utility/readShots';
 
 const EXPERIENCE_YEAR = new Date().getFullYear() - 2014;
 
@@ -127,17 +128,9 @@ export default function Home({ shots }: { shots: SerializedShot[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  let shots = [];
-  try {
-    const response = await fetch(`${APP_URL}/api/dribbble?count=21`)
-      .then((res) => res.json())
-      .catch((err) => {
-        console.log(err);
-      });
-    shots = response?.data || [];
-  } catch (error) {
-    console.log(error);
-  }
+  const db = await fs.readFile(process.cwd() + '/db.json', 'utf8');
+  const data = JSON.parse(db).shots;
+  const shots = shotSerializer(data).splice(21) || [];
 
   return {
     props: {

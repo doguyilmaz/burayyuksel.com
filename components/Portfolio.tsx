@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Box, Flex, HStack, Image, Stack, Text, useBreakpointValue } from '@chakra-ui/react';
-import type { SerializedShot } from '@/pages/api/dribbble';
+import type { SerializedShot } from '@/utility/readShots';
 
 const Portfolio = ({ shots }: { shots: SerializedShot[] }) => {
   const mt = useBreakpointValue({ base: 150, md: 230 }, { fallback: 'md' });

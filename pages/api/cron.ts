@@ -44,6 +44,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.json({ success: true, message: 'Dribbble data sync is successful.' });
     }
   } catch (error) {
+    console.log(error, 'QQQQQQQQQQQ');
     res.status(500).json({ data: [], success: false, message: 'Error' });
   }
 }

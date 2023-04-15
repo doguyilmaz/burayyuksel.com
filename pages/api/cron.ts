@@ -10,7 +10,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
-  if (req.query.key !== process.env.CRON_JOB_HASH) {
+  if (!req.query.access_token && req.query.key !== process.env.CRON_JOB_HASH) {
     res.status(401).json({
       success: false,
       message: 'Dribbble data sync is failed. Either provide dribbble access token nor cron key.',

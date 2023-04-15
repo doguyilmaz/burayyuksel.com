@@ -1,5 +1,5 @@
+import { promises as fs } from 'fs';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { API_URL } from '@/utility/config';
 
 export type Shot = {
   animated: boolean;
@@ -33,13 +33,12 @@ export type PortfolioItemImage = 'thumbnail' | 'teaser';
 export type SerializedShot = ReturnType<typeof shotSerializer>[number];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // const res = await fetch('https://api.dribbble.com/v2/user/shots'
   if (req.method !== 'GET')
     return res.status(405).json({ success: false, data: null, message: 'Method not allowed' });
 
   try {
-    const response = await fetch(`${API_URL}/shots`);
-    const data = await response.json();
+    const db = await fs.readFile(process.cwd() + '/db.json', 'utf8');
+    const data = JSON.parse(db).shots;
     const shots = shotSerializer(data);
     req.query.count && shots.splice(Number(req.query.count));
     res.status(200).json({ data: shots, success: true, message: 'Success' });

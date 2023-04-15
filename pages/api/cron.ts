@@ -5,13 +5,25 @@ import fs from 'fs/promises';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'GET')
-    return res.status(405).json({ success: false, data: null, message: 'Method not allowed' });
+  if (req.method !== 'GET') {
+    res.status(405).json({ success: false, data: null, message: 'Method not allowed' });
+    return;
+  }
+
+  if (req.query.key !== process.env.CRON_JOB_HASH) {
+    res.status(401).json({
+      success: false,
+      message: 'Dribbble data sync is failed. Either provide dribbble access token nor cron key.',
+    });
+    return;
+  }
 
   try {
-    const response = await fetch(
-      `https://api.dribbble.com/v2/user/shots?access_token=${req.query.access_token}`
-    );
+    const response = req.query.access_token
+      ? await fetch(`https://api.dribbble.com/v2/user/shots?access_token=${req.query.access_token}`)
+      : await fetch(
+          `https://api.dribbble.com/v2/user/shots?access_token=${process.env.DRIBBBLE_ACCESS_TOKEN}`
+        );
     const data = await response.json();
     const date = new Date().toISOString();
 
@@ -29,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
       // write new data to file
       await fs.writeFile(path.join(process.cwd(), 'db.json'), JSON.stringify(oldData), 'utf8');
-      res.json({ data, success: true, message: 'Success' });
+      res.json({ success: true, message: 'Dribbble data sync is successful.' });
     }
   } catch (error) {
     res.status(500).json({ data: [], success: false, message: 'Error' });

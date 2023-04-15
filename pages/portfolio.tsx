@@ -40,12 +40,18 @@ const Portfolio = ({ shots }: { shots: SerializedShot[] }) => {
 export default Portfolio;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const shots = await fetch('http://localhost:3000/api/dribbble/shots')
-    .then((res) => res.json())
-    .catch((err) => {
-      console.log(err);
-      return [];
-    });
+  let shots = [];
+  try {
+    const response = await fetch('http://localhost:3000/api/dribbble/shots')
+      .then((res) => res.json())
+      .catch((err) => {
+        console.log(err);
+        return [];
+      });
+    shots = response.data;
+  } catch (error) {
+    console.log(error);
+  }
 
   return {
     props: {

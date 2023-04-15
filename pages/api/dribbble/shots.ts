@@ -37,9 +37,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const response = await fetch('http://localhost:3004/shots');
     const data = await response.json();
-    res.status(200).json(shotSerializer(data));
+    res.status(200).json({ data: shotSerializer(data), success: true, message: 'Success' });
   } catch (error) {
-    res.status(500).json({ error: 'John Doe' });
+    res.status(500).json({ data: [], success: false, message: 'Error' });
   }
 }
 

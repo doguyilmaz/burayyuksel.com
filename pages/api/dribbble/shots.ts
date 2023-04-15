@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
+import { API_URL } from '@/utility/config';
 
 export type Shot = {
   animated: boolean;
@@ -37,7 +38,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(405).json({ success: false, data: null, message: 'Method not allowed' });
 
   try {
-    const response = await fetch('http://localhost:3004/shots');
+    const response = await fetch(`${API_URL}/shots`);
     const data = await response.json();
     const shots = shotSerializer(data);
     req.query.count && shots.splice(Number(req.query.count));

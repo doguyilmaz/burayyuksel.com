@@ -3,6 +3,7 @@ import Wrapper from '@/components/Wrapper';
 import { randomColor } from '@/utility/randomHashedColor';
 import type { SerializedShot } from '../pages/api/dribbble/shots';
 import type { GetStaticProps } from 'next';
+import { APP_URL } from '@/utility/config';
 
 const Portfolio = ({ shots }: { shots: SerializedShot[] }) => {
   return (
@@ -42,7 +43,7 @@ export default Portfolio;
 export const getStaticProps: GetStaticProps = async () => {
   let shots = [];
   try {
-    const response = await fetch('http://localhost:3000/api/dribbble/shots')
+    const response = await fetch(`${APP_URL}/api/dribbble/shots`)
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);

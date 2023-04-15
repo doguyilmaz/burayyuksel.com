@@ -1,5 +1,6 @@
 import Portfolio from '@/components/Portfolio';
 import Wrapper from '@/components/Wrapper';
+import { APP_URL } from '@/utility/config';
 import { Flex, Heading, HStack, Image, Text, Link as ChakraLink } from '@chakra-ui/react';
 import { GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -128,7 +129,7 @@ export default function Home({ shots }: { shots: SerializedShot[] }) {
 export const getStaticProps: GetStaticProps = async () => {
   let shots = [];
   try {
-    const response = await fetch('/api/dribbble/shots?count=21')
+    const response = await fetch(`${APP_URL}/api/dribbble/shots?count=21`)
       .then((res) => res.json())
       .catch((err) => {
         console.log(err);

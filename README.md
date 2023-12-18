@@ -1,1 +1,1 @@
-> ###### Product Designer [Buray Yuksel](burayyuksel.com)
+> ###### Product Designer [Buray Yuksel](https://burayyuksel.com)

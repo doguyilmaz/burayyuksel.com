@@ -18,13 +18,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return;
   }
 
+  const per_page = req.query.per_page || 45;
+
   try {
     const response = req.query.access_token
-      ? await fetch(`https://api.dribbble.com/v2/user/shots?access_token=${req.query.access_token}`)
+      ? await fetch(
+          `https://api.dribbble.com/v2/user/shots?access_token=${req.query.access_token}&page=1&per_page=${per_page}`
+        )
       : await fetch(
-          `https://api.dribbble.com/v2/user/shots?access_token=${process.env.DRIBBBLE_ACCESS_TOKEN}`
+          `https://api.dribbble.com/v2/user/shots?access_token=${process.env.DRIBBBLE_ACCESS_TOKEN}&page=1&per_page=${per_page}`
         );
     const data = await response.json();
+
     const date = new Date().toISOString();
 
     if (data.message === 'Bad credentials.') {

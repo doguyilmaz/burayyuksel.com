@@ -1,8 +1,5 @@
-import path from 'path';
-import crypto from 'crypto';
-import fs from 'fs/promises';
-
 import { NextApiRequest, NextApiResponse } from 'next';
+import { supabase } from '@/utils/supabase';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -22,34 +19,32 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   try {
     const response = req.query.access_token
-      ? await fetch(
-          `https://api.dribbble.com/v2/user/shots?access_token=${req.query.access_token}&page=1&per_page=${per_page}`
-        )
-      : await fetch(
-          `https://api.dribbble.com/v2/user/shots?access_token=${process.env.DRIBBBLE_ACCESS_TOKEN}&page=1&per_page=${per_page}`
-        );
+      ? await fetch(`https://api.dribbble.com/v2/user/shots?access_token=${req.query.access_token}&page=1&per_page=${per_page}`)
+      : await fetch(`https://api.dribbble.com/v2/user/shots?access_token=${process.env.DRIBBBLE_ACCESS_TOKEN}&page=1&per_page=${per_page}`);
     const data = await response.json();
-
-    const date = new Date().toISOString();
 
     if (data.message === 'Bad credentials.') {
       res.status(401).json({ data: [], success: false, message: 'Bad credentials.' });
     } else {
-      // read old file
-      const oldFile = await fs.readFile(process.cwd() + '/db.json', 'utf8');
-      const oldData = JSON.parse(oldFile);
+      const deleteAll = await supabase.from('shots').delete().neq('id', 0);
 
-      // update data
-      oldData.shots = data;
-      oldData.last_update = date;
-      oldData.syncons.unshift({ id: crypto.randomUUID(), date });
+      if (deleteAll.error) {
+        return res
+          .status(500)
+          .json({ data: [], success: false, message: 'Dribbble data sync is not successfull due to delete all.', error: deleteAll.error });
+      }
 
-      // write new data to file
-      await fs.writeFile(process.cwd() + '/db.json', JSON.stringify(oldData), 'utf8');
+      const insertAll = await supabase.from('shots').insert(data);
+
+      if (insertAll.error) {
+        return res
+          .status(500)
+          .json({ data: [], success: false, message: 'Dribbble data sync is not successfull due to insert all.', error: insertAll.error });
+      }
+
       res.json({ success: true, message: 'Dribbble data sync is successful.' });
     }
   } catch (error) {
-    console.log(error, 'QQQQQQQQQQQ');
     res.status(500).json({ data: [], success: false, message: 'Error' });
   }
 }

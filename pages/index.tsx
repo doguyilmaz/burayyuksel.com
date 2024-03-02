@@ -7,6 +7,7 @@ import Portfolio from '@/components/Portfolio';
 import Wrapper from '@/components/Wrapper';
 import type { SerializedShot } from '@/utility/readShots';
 import { shotSerializer } from '@/utility/readShots';
+import { supabase } from '@/utils/supabase';
 
 const EXPERIENCE_YEAR = new Date().getFullYear() - 2014;
 
@@ -55,69 +56,34 @@ export default function Home({ shots }: { shots: SerializedShot[] }) {
         color='#000'
         w={['340px', '380px', '620px', '864px']}
       >
-        I have {EXPERIENCE_YEAR} years experience as a designer in UI Designer and Art Director
-        positions. Currently, I work as an Product Design Coordinator at Türkiye Tourism Promotion
-        and Development Agency, designing user interface and user experience for product across all
-        major platforms - iOS, OS X, Android by using Adobe Illustrator, Adobe Photoshop, Sketch
-        App, Figma, inVision and other UX applications, creating assets, icons and illustrations,
-        besides this creating wireframes, work flows, prototypes and interactions.
+        I have {EXPERIENCE_YEAR} years experience as a designer in UI Designer and Art Director positions. Currently, I work as an Product Design
+        Coordinator at Türkiye Tourism Promotion and Development Agency, designing user interface and user experience for product across all major
+        platforms - iOS, OS X, Android by using Adobe Illustrator, Adobe Photoshop, Sketch App, Figma, inVision and other UX applications, creating
+        assets, icons and illustrations, besides this creating wireframes, work flows, prototypes and interactions.
       </Text>
 
       <Flex mt={['2rem', '8rem']} justify='space-between' maxW={1700}>
         <ChakraLink href='/#portfolio'>
           <HStack style={{ cursor: 'pointer' }}>
             <Image objectFit='cover' src='/images/scroll-button.png' alt='scroll-button' />
-            <Text
-              color='#271525'
-              fontSize={14}
-              fontWeight={700}
-              lineHeight='21px'
-              fontFamily='Poppins'
-            >
+            <Text color='#271525' fontSize={14} fontWeight={700} lineHeight='21px' fontFamily='Poppins'>
               Scroll Down
             </Text>
           </HStack>
         </ChakraLink>
 
-        <HStack
-          spacing='30px'
-          sx={{ WebkitFilter: 'grayscale(1) invert(1)', filter: 'grayscale(1) invert(1)' }}
-        >
+        <HStack spacing='30px' sx={{ WebkitFilter: 'grayscale(1) invert(1)', filter: 'grayscale(1) invert(1)' }}>
           <ChakraLink href='https://dribbble.com/burayyuksel' isExternal>
-            <Image
-              src='/images/social-dribbble.png'
-              alt='Behance'
-              objectFit='cover'
-              w='23px'
-              h='23px'
-            />
+            <Image src='/images/social-dribbble.png' alt='Behance' objectFit='cover' w='23px' h='23px' />
           </ChakraLink>
           <ChakraLink href='https://www.behance.net/buray_yuksel' isExternal>
-            <Image
-              src='/images/social-behance.png'
-              alt='Behance'
-              objectFit='cover'
-              w='33px'
-              h='21px'
-            />
+            <Image src='/images/social-behance.png' alt='Behance' objectFit='cover' w='33px' h='21px' />
           </ChakraLink>
           <ChakraLink href='https://www.instagram.com/buray_yuksel/' isExternal>
-            <Image
-              src='/images/social-instagram.png'
-              alt='Behance'
-              objectFit='cover'
-              w='22px'
-              h='21px'
-            />
+            <Image src='/images/social-instagram.png' alt='Behance' objectFit='cover' w='22px' h='21px' />
           </ChakraLink>
           <ChakraLink href='https://www.linkedin.com/in/burayyuksel/' isExternal>
-            <Image
-              src='/images/social-linkedin.png'
-              alt='Behance'
-              objectFit='cover'
-              w='22px'
-              h='22px'
-            />
+            <Image src='/images/social-linkedin.png' alt='Behance' objectFit='cover' w='22px' h='22px' />
           </ChakraLink>
         </HStack>
       </Flex>
@@ -128,14 +94,11 @@ export default function Home({ shots }: { shots: SerializedShot[] }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const db = await fs.readFile(process.cwd() + '/db.json', 'utf8');
-  const data = JSON.parse(db).shots;
-  const shots = shotSerializer(data);
-  // shots.splice(33);
+  const { data } = await supabase.from('shots').select();
 
   return {
     props: {
-      shots,
+      shots: shotSerializer(data),
     },
     revalidate: 60 * 60, // every hour
   };

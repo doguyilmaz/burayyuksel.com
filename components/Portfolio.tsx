@@ -36,20 +36,12 @@ const PortfolioItem = ({ shot }: { shot: SerializedShot }) => {
   // const imgKey = useBreakpointValue({ base: 'teaser', md: 'thumbnail' }, { fallback: 'md' });
 
   return (
-    <Link href={shot.url} target='_blank'>
+    <Link href={shot.url || '#'} target='_blank'>
       <Stack key={shot.id}>
         <Image src={shot.thumbnail} alt={shot.title} borderRadius={12} h={height} w={width} />
 
         <HStack justify='space-between'>
-          <Text
-            fontSize={30}
-            fontWeight={500}
-            lineHeight='45px'
-            color='#271525'
-            noOfLines={2}
-            maxW={300}
-            h={90}
-          >
+          <Text fontSize={30} fontWeight={500} lineHeight='45px' color='#271525' noOfLines={2} maxW={300} h={90}>
             {shot.title}
           </Text>
           <Image src='/images/arrow-top-right.png' alt='arrow' />
